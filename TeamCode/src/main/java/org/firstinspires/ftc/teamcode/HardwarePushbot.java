@@ -18,8 +18,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  *
  * This defines the hardware that you are going to use for your robot
  */
-public class HardwarePushbot
-{
+public class HardwarePushbot {
     /* Public OpMode members. */
     public DcMotor  frontLeftDrive   = null;
     public DcMotor  frontRightDrive  = null;
@@ -30,6 +29,7 @@ public class HardwarePushbot
     public DcMotor armBase2 = null;
 
     public CRServo intake = null;
+    public CRServo winch;
     //public Servo    clawLiftRight    = null;
     //public Servo    clawLiftLeft    = null;
     public ColorSensor color;
@@ -39,8 +39,7 @@ public class HardwarePushbot
     private ElapsedTime period  = new ElapsedTime();
 
     /* Constructor */
-    public HardwarePushbot()
-    {
+    public HardwarePushbot() {
 
     }
 
@@ -54,7 +53,9 @@ public class HardwarePushbot
         frontRightDrive = hwMap.get(DcMotor.class, "front_right");//Sets the name you have to use for the phone config
         backLeftDrive  = hwMap.get(DcMotor.class, "back_left");//Sets the name you have to use for the phone config
         backRightDrive = hwMap.get(DcMotor.class, "back_right");
-
+	
+	winch = hwMap.crservo.get("winch");
+	
         // armBase1 = hwMap.get(DcMotor.class, "arm_base_1");
         // armBase2 = hwMap.get(DcMotor.class, "arm_base_2");
 
@@ -75,7 +76,7 @@ public class HardwarePushbot
             motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); //set all motors to run with encoders
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); //set motor behavior to halt when no buttons are pressed
         }
-
+	
         // intake = hwMap.crservo.get("intake");
 
         //clawLiftRight  = hwMap.get(Servo.class, "claw_lift_right");//Sets the name you have to use for the phone config

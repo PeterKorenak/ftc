@@ -112,8 +112,7 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         double frontRightPower = drive - strafe - rotate;
         double backRightPower = drive + strafe - rotate;
 
-        if(gamepad1.dpad_left)
-        {
+        if(gamepad1.dpad_left) {
 
             robot.frontLeftDrive.setPower(-.7);
             robot.frontRightDrive.setPower(.3);
@@ -121,16 +120,13 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             robot.backRightDrive.setPower(-.3);
         }
 
-        else if(gamepad1.right_bumper)
-        {
-
+        else if(gamepad1.right_bumper) {
+	    robot.winch.setPower(1);
             robot.frontLeftDrive.setPower(1);
             robot.frontRightDrive.setPower(-1);
             robot.backLeftDrive.setPower(1);
             robot.backRightDrive.setPower(-1);
-        }
-        else if(gamepad1.left_bumper)
-        {
+        } else if(gamepad1.left_bumper) {
             robot.frontLeftDrive.setPower(-1);
             robot.frontRightDrive.setPower(1);
             robot.backLeftDrive.setPower(-1);
