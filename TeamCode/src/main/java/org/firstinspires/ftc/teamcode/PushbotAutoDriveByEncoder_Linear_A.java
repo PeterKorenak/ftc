@@ -133,15 +133,19 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
                  .addData("s", "%.3f", hsvValues[1])
                  .addData("v", "%.3f", hsvValues[2]);
 
-        robot.marker_drop.setPosition(0); // drop markers
-        timedDrive(2050, 5, 5, 5, 5); //drive in depot
-        timedDrive(1000, 0, 0, 0, 0); //pause
-        robot.marker_drop.setPosition(0.5);
-        robot.marker_drop.setPosition(0);
-        timedDrive(890, 5, -5, 5, -5); //turn
-        timedDrive(1000, 0, 0, 0, 0); //pause
-        timedDrive(2050, 5, 5, 5, 5); //drive to crater
+        // robot.marker_drop.setPosition(0); // drop markers
+        // timedDrive(2050, 5, 5, 5, 5); //drive in depot
+        // timedDrive(1000, 0, 0, 0, 0); //pause
+        // robot.marker_drop.setPosition(0.5);
+        // robot.marker_drop.setPosition(0);
+        // timedDrive(890, 5, -5, 5, -5); //turn
+        // timedDrive(1000, 0, 0, 0, 0); //pause
+        // timedDrive(2050, 5, 5, 5, 5); //drive to crater
 
+	encoderDrive(DRIVE_SPEED, 64.0, 64.0, 64.0, 64.0, 64.0);
+	encoderDrive(DRIVE_SPEED, 9.5, -9.5, 9.5, -9.5, 9.5);
+	encoderDrive(DRIVE_SPEED, 92.0, 92.0, 92.0, 92.0, 92.0);
+	
 
         /* TODO: use color to determine where to travel.
 	   How this would work:
