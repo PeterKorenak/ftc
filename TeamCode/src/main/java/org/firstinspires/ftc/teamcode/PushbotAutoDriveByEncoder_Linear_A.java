@@ -191,6 +191,12 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 	double dist = radius * theta;
 	encoderDrive(speed, dist, -dist, dist, -dist, timeout);
     }	
+
+    public void delay(long millis) {
+	runtime.reset();
+	while (runtime.milliseconds() < millis);
+	runtime.reset();
+    }
     
     /*
      *  Method to perfmorm a relative move, based on encoder counts.
