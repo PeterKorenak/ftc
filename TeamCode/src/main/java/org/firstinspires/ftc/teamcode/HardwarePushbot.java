@@ -40,7 +40,7 @@ public class HardwarePushbot {
     public Servo intake_Tilt         = null;
     public Servo intake_Door         = null;
     public CRServo intake_Tumbler    = null;
-    public CRServo winch = null;
+    public Servo winch = null;
     public ColorSensor color;
 
     //MARKER SERVO
@@ -88,7 +88,7 @@ public class HardwarePushbot {
         // intake_Door = hwMap.servo.get("intake_door");                                               //Sets intake Door config
 
         // WINCH
-        winch = hwMap.crservo.get("winch");
+        winch = hwMap.servo.get("winch");
 
         //SENSORS
         color = hwMap.colorSensor.get("color_sensor");                                              //Sets color sensor config
@@ -110,7 +110,12 @@ public class HardwarePushbot {
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);                                     // Set to REVERSE if using AndyMark motors
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);                                    // Set to FORWARD if using AndyMark motors
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);                                      // Set to REVERSE if using AndyMark motors
-        backRightDrive.setDirection(DcMotor.Direction.REVERSE);                                     // Set to FORWARD if using AndyMark motors
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+
+        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //MOTOR BRAKE: sets all mot power to zero
         DcMotor[] motors = new DcMotor[] {frontLeftDrive, frontRightDrive,backLeftDrive,

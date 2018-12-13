@@ -32,6 +32,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.Servo;
 
 /**
  * This file provides basic Telop driving for a Pushbot robot.
@@ -51,7 +52,7 @@ import com.qualcomm.robotcore.hardware.DcMotorSimple;
 
 @TeleOp(name="Comp TeleOp", group="Pushbot")
 //@Disabled
-public class PushbotTeleopTank_Iterative extends OpMode{
+public class PushbotTeleopTank_Iterative extends OpMode {
 
     /* Declare OpMode members. */
     org.firstinspires.ftc.teamcode.HardwarePushbot robot = new org.firstinspires.ftc.teamcode.HardwarePushbot(); // use the class created to define a Pushbot's hardware
@@ -73,32 +74,25 @@ public class PushbotTeleopTank_Iterative extends OpMode{
          * The init() method of the hardware class does all the work here
          */
         robot.init(hardwareMap);
-
-        // Send telemetry message to signify robot waiting;
-        telemetry.addData("Say", "hey yo b");
-        telemetry.addLine().addData("update", "hello again");
-        telemetry.update();
-
     }
 
     /*
      * Code to run REPEATEDLY after the driver hits INIT, but before they hit PLAY
      */
     @Override
-    public void init_loop() {
-    }
+    public void init_loop() {}
 
     /*
      * Code to run ONCE when the driver hits PLAY
      */
     @Override
-    public void start() {
-    }
+    public void start() {}
 
 
 
     @Override
     public void loop() {
+        /*
         double drive;   // Power for forward and back motion
         double strafe;  // Power for left and right motion
         double rotate;  // Power for rotating the robot
@@ -116,27 +110,64 @@ public class PushbotTeleopTank_Iterative extends OpMode{
         double backLeftPower = drive - strafe + rotate;
         double frontRightPower = drive - strafe - rotate;
         double backRightPower = drive + strafe - rotate;
+        */
 
-        telemetry.addLine().addData("another thing", "good so far");
-        telemetry.update();
-        if (gamepad1.a && winchElevation < 5.0) {
-            robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.winch.setPower(0.7);
-            winchElevation += 0.7;
+        // WINCH
+        if (gamepad1.y) {
+            robot.winch.setPosition(1.5);
+        } else if (gamepad1.y) {
+            robot.winch.setPosition(0.5);
         }
 
-	    // y button raises winch up & a button sets it down
-	    if (gamepad1.y && winchElevation > -5.0) {
-            robot.winch.setDirection(DcMotorSimple.Direction.REVERSE);
-            robot.winch.setPower(-0.7);
-            winchElevation -= 0.7;
-        }
+        // ARM UP
+//        if(gamepad1.a) {
+//            int position1 = robot.priArm_Left.getCurrentPosition();
+//            int position2 = robot.priArm_Right.getCurrentPosition();
+//
+//            robot.priArm_Left.setTargetPosition(position1 + 10);
+//            robot.priArm_Left.setPower(.3);
+//
+//            robot.priArm_Right.setTargetPosition(position2 + 10);
+//            robot.priArm_Right.setPower(.3);
+//        //ARM DOWN
+//        } else if(gamepad1.y) {
+//            int position3 = robot.priArm_Left.getCurrentPosition();
+//            int position4 = robot.priArm_Right.getCurrentPosition();
+//
+//            robot.priArm_Left.setTargetPosition(position3 - 10);
+//            robot.priArm_Left.setPower(-.3);
+//
+//            robot.priArm_Right.setTargetPosition(position4 - 10);
+//            robot.priArm_Right.setPower(-.3);
+//
+//        } else {
+//            robot.priArm_Left.setPower(0);
+//            robot.priArm_Right.setPower(0);
+//        }
 
         if(gamepad1.dpad_left) {
+            robot.frontLeftDrive.setPower(.7);
+            robot.frontRightDrive.setPower(-.7);
+            robot.backLeftDrive.setPower(-.7);
+            robot.backRightDrive.setPower(.7);
+        } else if(gamepad1.dpad_right) {
             robot.frontLeftDrive.setPower(-.7);
-            robot.frontRightDrive.setPower(.3);
+            robot.frontRightDrive.setPower(.7);
             robot.backLeftDrive.setPower(.7);
-            robot.backRightDrive.setPower(-.3);
+            robot.backRightDrive.setPower(-.7);
+        } else if(gamepad1.right_stick_x != 0 || gamepad1.right_stick_y != 0) {
+            double r = Math.hypot(gamepad1.right_stick_x, gamepad1.right_stick_y);
+            double robotAngle = Math.atan2(gamepad1.right_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
+            double rightX = gamepad1.right_stick_x;
+            final double v1 = r * Math.cos(robotAngle) + rightX;
+            final double v2 = r * Math.sin(robotAngle) - rightX;
+            final double v3 = r * Math.sin(robotAngle) + rightX;
+            final double v4 = r * Math.cos(robotAngle) - rightX;
+
+            robot.frontLeftDrive.setPower(v1);
+            robot.frontRightDrive.setPower(v2);
+            robot.backLeftDrive.setPower(v3);
+            robot.backRightDrive.setPower(v4);
         } else if(gamepad1.right_bumper) {
             robot.frontLeftDrive.setPower(1);
             robot.frontRightDrive.setPower(-1);
@@ -147,99 +178,26 @@ public class PushbotTeleopTank_Iterative extends OpMode{
             robot.frontRightDrive.setPower(1);
             robot.backLeftDrive.setPower(-1);
             robot.backRightDrive.setPower(1);
-        } else if(gamepad1.dpad_right) {
-            robot.frontLeftDrive.setPower(.7);
-            robot.frontRightDrive.setPower(-.3);
-            robot.backLeftDrive.setPower(-.7);
-            robot.backRightDrive.setPower(.3);
         } else {
-            robot.frontLeftDrive.setPower(frontLeftPower);
-            robot.frontRightDrive.setPower(frontRightPower);
-            robot.backLeftDrive.setPower(backLeftPower);
-            robot.backRightDrive.setPower(backRightPower);
-        }
-        //ARM UP
-        if(gamepad1.a) {
-            int position1 = robot.priArm_Left.getCurrentPosition();
-            int position2 = robot.priArm_Right.getCurrentPosition();
-
-            robot.priArm_Left.setTargetPosition(position1 + 10);
-            robot.priArm_Left.setPower(.3);
-
-            robot.priArm_Right.setTargetPosition(position2 + 10);
-            robot.priArm_Right.setPower(.3);
-        //ARM DOWN
-        } else if(gamepad1.y) {
-            int position3 = robot.priArm_Left.getCurrentPosition();
-            int position4 = robot.priArm_Right.getCurrentPosition();
-
-            robot.priArm_Left.setTargetPosition(position3 - 10);
-            robot.priArm_Left.setPower(-.3);
-
-            robot.priArm_Right.setTargetPosition(position4 - 10);
-            robot.priArm_Right.setPower(-.3);
-
-        } else {
-            robot.priArm_Left.setPower(0);
-            robot.priArm_Right.setPower(0);
-        }
-
-        /*
-
-        if(gamepad1.right_stick_x != 0 || gamepad1.right_stick_y != 0)
-        {
-
-
-            double r = Math.hypot(gamepad1.right_stick_x, gamepad1.right_stick_y);
-            double robotAngle = Math.atan2(gamepad1.right_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
-            double rightX = gamepad1.right_stick_x;
-            final double v1 = r * Math.cos(robotAngle) + rightX;
-            final double v2 = r * Math.sin(robotAngle) - rightX;
-            final double v3 = r * Math.sin(robotAngle) + rightX;
-            final double v4 = r * Math.cos(robotAngle) - rightX;
-
-
-            robot.frontLeftDrive.setPower(v1);
-            robot.frontRightDrive.setPower(v2);
-            robot.backLeftDrive.setPower(v3);
-            robot.backRightDrive.setPower(v4);
-        }
-        else if(gamepad1.right_bumper)
-        {
-            robot.frontLeftDrive.setPower(1);
-            robot.frontRightDrive.setPower(-1);
-            robot.backLeftDrive.setPower(1);
-            robot.backRightDrive.setPower(-1);
-        }
-        else if(gamepad1.left_bumper)
-        {
-            robot.frontLeftDrive.setPower(-1);
-            robot.frontRightDrive.setPower(1);
-            robot.backLeftDrive.setPower(-1);
-            robot.backRightDrive.setPower(1);
-        }
-        else
-        {
             robot.frontLeftDrive.setPower(0);
             robot.frontRightDrive.setPower(0);
             robot.backLeftDrive.setPower(0);
             robot.backRightDrive.setPower(0);
         }
 
-        if(gamepad1.a)
-        {
+        /*
+        // INTAKE STUFF
+        if(gamepad1.a) {
             contPower = 0;
         }
-        else if(gamepad1.b)
-        {
+        else if(gamepad1.b) {
             contPower = 1;
         } else {
             contPower = .45;
         }
 
         robot.intake.setPower(contPower);
-*/
-
+        */
     }
 
     /*

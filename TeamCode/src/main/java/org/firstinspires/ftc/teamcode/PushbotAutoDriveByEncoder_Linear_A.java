@@ -34,6 +34,7 @@ import android.graphics.Color;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
@@ -75,10 +76,10 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
-	(WHEEL_DIAMETER_INCHES * 3.1415);
+	                (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = .9;
     static final double     TURN_SPEED              = .9;
     double winchElevation = 0.0;
@@ -142,56 +143,22 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         // timedDrive(1000, 0, 0, 0, 0); //pause
         // timedDrive(2050, 5, 5, 5, 5); //drive to crater
 
-	encoderDrive(DRIVE_SPEED, 64.0, 64.0, 64.0, 64.0, 64.0);
-	encoderDrive(DRIVE_SPEED, 9.5, -9.5, 9.5, -9.5, 9.5);
-	encoderDrive(DRIVE_SPEED, 92.0, 92.0, 92.0, 92.0, 92.0);
-	
-
-        /* TODO: use color to determine where to travel.
-	   How this would work:
-	   * While the color we're sensing _isn't_ yellow, turn around
-	   * examine the HUE to see if it's yellow (hue range is 51-60)
-	   * if there is yellow, go forward
-	   */
-        /*
-        int block = 0;
-        // move forward
-        for(int i = 0; i < 45; i++) {
-            encoderDrive(1, .5, .5, .5, .5, 10);
-            if((hsvValues[0] >= 55 && hsvValues[0] <= 60 && hsvValues[1] >= 60 && hsvValues[2] >= 40))
-                break;
-        }
-
-        // Step through the 3 blocks and test them
-        for(int i = 0; i < 3; i++) {
-            if (!(hsvValues[0] >= 55 && hsvValues[0] <= 60 && hsvValues[1] >= 60 && hsvValues[2] >= 40)) {
-                encoderDrive(DRIVE_SPEED,  -12,  12, -12.0, 12.0, 100.0);
-                telemetry.addLine()
-		            .addData("h", "%.3f", hsvValues[0])
-		            .addData("s", "%.3f", hsvValues[1])
-		            .addData("v", "%.3f", hsvValues[2]);
-                telemetry.update();
-                block++;
-            }
-        }
-
+        int block = 1;
+        encoderDrive(.8, 17, 17, 17, 17, 3);
         //drive thru gold block
-        encoderDrive(1,3,3,3,3,3);
-        //turn 45 degrees
-        encoderDrive(1,-4.5,4.5,-4.5,4.5,5);
-        //move forward
-        encoderDrive(1,8.5*block,8.5*block,8.5*block,8.5*block,20);
-        //turn 35 degrees
-        encoderDrive(1,-4.5,4.5,-4.5,4.5,5);
-        //move to crater
-        encoderDrive(1, 39 + block * 8.5, 39 + block * 8.5,39 + block * 8.5,39 + block * 8.5,30);
-        //lower winch to break vertical plane of crater
-        if (gamepad1.a && winchElevation < 5.0) {
-            robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
-            robot.winch.setPower(0.7);
-            winchElevation += 0.7;
-        }
-        */
+        encoderDrive(.8,12,-12,12,-12,3);
+        //turn 135 degrees
+        encoderDrive(.8, 23, 23, 23, 23, 3);
+        encoderDrive(.8, 5, -5, 5, -5, 3);
+
+        encoderDrive(.8,40,40,40,40,15);
+
+        encoderDrive(.65,-45,-45,-45,-45,15);
+        // if (gamepad1.a && winchElevation < 5.0) {
+        //    robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
+        //    robot.winch.setPower(0.7);
+        //    winchElevation += 0.7;
+        // }
     }
 
     /**
@@ -238,6 +205,7 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         int newLeftTarget2;
         int newRightTarget2;
 
+
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
             // Determine new target position, and pass to motor controller
@@ -270,7 +238,7 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
             // However, if you require that BOTH motors have finished their moves before the robot continues
             // onto the next step, use (isBusy() || isBusy()) in the loop test.
             while (opModeIsActive() && (runtime.seconds() < timeoutS) &&
-		        (robot.frontLeftDrive.isBusy() || robot.frontRightDrive.isBusy() || robot.backLeftDrive.isBusy() || robot.backRightDrive.isBusy())) {
+		        (robot.frontLeftDrive.isBusy() && robot.frontRightDrive.isBusy() && robot.backLeftDrive.isBusy() && robot.backRightDrive.isBusy())) {
 
                 // Display it for the driver.
                 telemetry.addData("Path1", "Running to %7d :%7d", newLeftTarget, newRightTarget);

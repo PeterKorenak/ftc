@@ -29,9 +29,15 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import android.graphics.Color;
+
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
+import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 /**
@@ -70,7 +76,7 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
     private ElapsedTime     runtime = new ElapsedTime();
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
-    static final double     DRIVE_GEAR_REDUCTION    = 2.0 ;     // This is < 1.0 if geared UP
+    static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
     static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
                                                       (WHEEL_DIAMETER_INCHES * 3.1415);
@@ -169,8 +175,9 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
                 block++;
             }
         }
-
+        */
         //drive thru gold block
+        int block = 1;
         encoderDrive(1,3,3,3,3,3);
         //turn 45 degrees
         encoderDrive(1,-4.5,4.5,-4.5,4.5,5);
@@ -181,12 +188,11 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
         //move to crater
         encoderDrive(1, 39 + block * 8.5, 39 + block * 8.5,39 + block * 8.5,39 + block * 8.5,30);
         //lower winch to break vertical plane of crater
-        if (gamepad1.a && winchElevation < 5.0) {
+        /*if (gamepad1.a && winchElevation < 5.0) {
             robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.winch.setPower(0.7);
             winchElevation += 0.7;
-        }
-        */
+        }*/
     }
 
     /**
