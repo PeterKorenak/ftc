@@ -93,12 +93,12 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        NormalizedColorSensor colorSensor = hardwareMap.get(NormalizedColorSensor.class, "color_sensor");
-        // If possible, turn the light on in the beginning (it might already be on anyway,
-        // we just make sure it is if we can).
-        if (colorSensor instanceof SwitchableLight) {
-            ((SwitchableLight)colorSensor).enableLight(true);
-        }
+        // NormalizedColorSensor colorSensor = hardwareMap.get(NormalizedColorSensor.class, "color_sensor");
+        // // If possible, turn the light on in the beginning (it might already be on anyway,
+        // // we just make sure it is if we can).
+        // if (colorSensor instanceof SwitchableLight) {
+        //     ((SwitchableLight)colorSensor).enableLight(true);
+        // }
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -126,22 +126,13 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         waitForStart();
 
         // print out the colors
-        float[] hsvValues = new float[3];
-        NormalizedRGBA colors = colorSensor.getNormalizedColors();
-        Color.colorToHSV(colors.toColor(), hsvValues);
-        telemetry.addLine()
-                 .addData("h", "%.3f", hsvValues[0])
-                 .addData("s", "%.3f", hsvValues[1])
-                 .addData("v", "%.3f", hsvValues[2]);
-
-        // robot.marker_drop.setPosition(0); // drop markers
-        // timedDrive(2050, 5, 5, 5, 5); //drive in depot
-        // timedDrive(1000, 0, 0, 0, 0); //pause
-        // robot.marker_drop.setPosition(0.5);
-        // robot.marker_drop.setPosition(0);
-        // timedDrive(890, 5, -5, 5, -5); //turn
-        // timedDrive(1000, 0, 0, 0, 0); //pause
-        // timedDrive(2050, 5, 5, 5, 5); //drive to crater
+        // float[] hsvValues = new float[3];
+        // NormalizedRGBA colors = colorSensor.getNormalizedColors();
+        // Color.colorToHSV(colors.toColor(), hsvValues);
+        // telemetry.addLine()
+        //          .addData("h", "%.3f", hsvValues[0])
+        //          .addData("s", "%.3f", hsvValues[1])
+        //          .addData("v", "%.3f", hsvValues[2]);
 
         int block = 1;
         encoderDrive(.8, 17, 17, 17, 17, 3);

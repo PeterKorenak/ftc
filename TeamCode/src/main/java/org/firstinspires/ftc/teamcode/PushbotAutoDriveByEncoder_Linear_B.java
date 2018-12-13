@@ -92,12 +92,12 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
 
         robot.init(hardwareMap);
 
-        NormalizedColorSensor colorSensor = hardwareMap.get(NormalizedColorSensor.class, "color_sensor");
-        // If possible, turn the light on in the beginning (it might already be on anyway,
-        // we just make sure it is if we can).
-        if (colorSensor instanceof SwitchableLight) {
-            ((SwitchableLight)colorSensor).enableLight(true);
-        }
+        // NormalizedColorSensor colorSensor = hardwareMap.get(NormalizedColorSensor.class, "color_sensor");
+        // // If possible, turn the light on in the beginning (it might already be on anyway,
+        // // we just make sure it is if we can).
+        // if (colorSensor instanceof SwitchableLight) {
+        //     ((SwitchableLight)colorSensor).enableLight(true);
+        // }
 
         // Send telemetry message to signify robot waiting;
         telemetry.addData("Status", "Resetting Encoders");    //
@@ -124,58 +124,15 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
-        float[] hsvValues = new float[3];
-        NormalizedRGBA colors = colorSensor.getNormalizedColors();
-        Color.colorToHSV(colors.toColor(), hsvValues);
-        telemetry.addLine()
-                .addData("h", "%.3f", hsvValues[0])
-                .addData("s", "%.3f", hsvValues[1])
-                .addData("v", "%.3f", hsvValues[2]);
-        // print out the colors
+        // float[] hsvValues = new float[3];
+        // NormalizedRGBA colors = colorSensor.getNormalizedColors();
+        // Color.colorToHSV(colors.toColor(), hsvValues);
+        // telemetry.addLine()
+        //         .addData("h", "%.3f", hsvValues[0])
+        //         .addData("s", "%.3f", hsvValues[1])
+        //         .addData("v", "%.3f", hsvValues[2]);
+        // // print out the colors
 
-        // move forward 6 feet or so
-        // encoderDrive(DRIVE_SPEED, 5, 5, 5, 5, 10);
-        // encoderDrive(DRIVE_SPEED, -5, 5, -5, 5, 10);
-        // encoderDrive(DRIVE_SPEED, 5, 5, 5, 5, 10);
-        timedDrive(1000, 5, 5, 5, 5); // drive forward a little
-        timedDrive(1000, 0, 0, 0, 0); // pause
-        robot.marker_drop.setPosition(0.5);
-        robot.marker_drop.setPosition(0);
-        timedDrive(890, 5, -5, 5, -5); // turn
-        timedDrive(1000, 0, 0, 0, 0); // pause
-        timedDrive(2050, 5, 5, 5, 5); // drive to depot
-        robot.marker_drop.setPosition(0);
-        timedDrive(890, -5, 5, -5, 5); // turn reverse
-        timedDrive(2050, 5, 5, 5, 5); // drive to crater
-
-        /* TODO: use color to determine where to travel.
-	   How this would work:
-	   * While the color we're sensing _isn't_ yellow, turn around
-	   * examine the HUE to see if it's yellow (hue range is 51-60)
-	   * if there is yellow, go forward
-	   */
-        /*
-        int block = 0;
-        // move forward
-        for(int i = 0; i < 45; i++) {
-            encoderDrive(1, .5, .5, .5, .5, 10);
-            if((hsvValues[0] >= 55 && hsvValues[0] <= 60 && hsvValues[1] >= 60 && hsvValues[2] >= 40))
-                break;
-        }
-
-        // Step through the 3 blocks and test them
-        for(int i = 0; i < 3; i++) {
-            if (!(hsvValues[0] >= 55 && hsvValues[0] <= 60 && hsvValues[1] >= 60 && hsvValues[2] >= 40)) {
-                encoderDrive(DRIVE_SPEED,  -12,  12, -12.0, 12.0, 100.0);
-                telemetry.addLine()
-		            .addData("h", "%.3f", hsvValues[0])
-		            .addData("s", "%.3f", hsvValues[1])
-		            .addData("v", "%.3f", hsvValues[2]);
-                telemetry.update();
-                block++;
-            }
-        }
-        */
         //drive thru gold block
         int block = 1;
         encoderDrive(1,3,3,3,3,3);
