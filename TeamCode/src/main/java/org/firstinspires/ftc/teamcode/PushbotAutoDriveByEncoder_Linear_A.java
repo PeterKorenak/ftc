@@ -140,9 +140,9 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         encoderDrive(.8,12,-12,12,-12,3);
         //Drive to wall
         encoderDrive(.8, 24, 24, 24, 24, 3);
-        //spin twards depot
+        //spin towards depot
         encoderDrive(.8, 7, -7, 7, -7, 3);
-        //Drive to depo
+        //Drive to depot
         encoderDrive(.8,40,40,40,40,15);
         // drop the marker
         robot.marker_drop.setDirection(Servo.Direction.REVERSE);
