@@ -37,6 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
@@ -82,7 +83,6 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 	                (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = .9;
     static final double     TURN_SPEED              = .9;
-    double winchElevation = 0.0;
 
     @Override
     public void runOpMode() {
@@ -144,15 +144,23 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         // timedDrive(2050, 5, 5, 5, 5); //drive to crater
 
         int block = 1;
-        encoderDrive(.8, 17, 17, 17, 17, 3);
         //drive thru gold block
-        encoderDrive(.8,12,-12,12,-12,3);
+
+        encoderDrive(.8, 17, 17, 17, 17, 3);
         //turn 135 degrees
-        encoderDrive(.8, 23, 23, 23, 23, 3);
-        encoderDrive(.8, 5, -5, 5, -5, 3);
-
+        encoderDrive(.8,12,-12,12,-12,3);
+        //Drive to wall
+        encoderDrive(.8, 24, 24, 24, 24, 3);
+        //spin twards depot
+        encoderDrive(.8, 7, -7, 7, -7, 3);
+        //Drive to depo
         encoderDrive(.8,40,40,40,40,15);
-
+        // robot.marker_drop.setPosition(0);
+        robot.marker_drop.setDirection(Servo.Direction.REVERSE);
+        robot.marker_drop.setPosition(1);
+        robot.marker_drop.setDirection(Servo.Direction.FORWARD);
+        robot.marker_drop.setPosition(0.5);
+        //Reverse to crater
         encoderDrive(.65,-45,-45,-45,-45,15);
         // if (gamepad1.a && winchElevation < 5.0) {
         //    robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);

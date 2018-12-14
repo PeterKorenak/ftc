@@ -95,8 +95,7 @@ public class HardwarePushbot {
 
         //SERVO TO DROP MARKER IN DEPOT
         marker_drop = hwMap.servo.get("marker");
-
-        //DIRECTION INIT//
+        //DIRECTION INIT//\
 
         //PRIMARY ARM
         // priArm_Right.setDirection(DcMotor.Direction.FORWARD);
