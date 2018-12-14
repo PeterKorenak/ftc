@@ -135,10 +135,6 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         //          .addData("h", "%.3f", hsvValues[0])
         //          .addData("s", "%.3f", hsvValues[1])
         //          .addData("v", "%.3f", hsvValues[2]);
-
-        int block = 1;
-        //drive thru gold block
-
         encoderDrive(.8, 17, 17, 17, 17, 3);
         //turn 135 degrees
         encoderDrive(.8,12,-12,12,-12,3);
@@ -148,7 +144,7 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         encoderDrive(.8, 7, -7, 7, -7, 3);
         //Drive to depo
         encoderDrive(.8,40,40,40,40,15);
-        // robot.marker_drop.setPosition(0);
+        // drop the marker
         robot.marker_drop.setDirection(Servo.Direction.REVERSE);
         robot.marker_drop.setPosition(1);
         robot.marker_drop.setDirection(Servo.Direction.FORWARD);

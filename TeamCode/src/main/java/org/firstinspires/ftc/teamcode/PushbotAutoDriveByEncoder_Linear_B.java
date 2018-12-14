@@ -133,17 +133,13 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
         //         .addData("v", "%.3f", hsvValues[2]);
         // // print out the colors
 
-        //drive thru gold block
-        int block = 1;
-        encoderDrive(0.8,3,3,3,3,3);
-        //turn 45 degrees
-        encoderDrive(0.8,-4.5,4.5,-4.5,4.5,5);
-        //move forward
-        encoderDrive(0.8,8.5*block,8.5*block,8.5*block,8.5*block,20);
-        //turn 35 degrees
-        encoderDrive(0.8,-4.5,4.5,-4.5,4.5,5);
-        //move to crater
-        encoderDrive(0.8, 39 + block * 8.5, 39 + block * 8.5,39 + block * 8.5,39 + block * 8.5,30);
+        // drive thru middle block & into depot
+        encoderDrive(0.8, 10, 10, 10, 10, 10);
+	// drop the marker
+        robot.marker_drop.setDirection(Servo.Direction.REVERSE);
+        robot.marker_drop.setPosition(1);
+        robot.marker_drop.setDirection(Servo.Direction.FORWARD);
+        robot.marker_drop.setPosition(0.5);
         //lower winch to break vertical plane of crater
         /*if (gamepad1.a && winchElevation < 5.0) {
             robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
