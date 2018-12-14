@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+import java.lang.Math;
+
 import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -187,6 +189,23 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         robot.backRightDrive.setPower(0);
     }
 
+    /** 
+     * Rotates the robot a certain amount of degrees.
+     * Math!
+     */
+    public void rotateRobot(double speed, int degrees, double timeout) {
+	double radius = WHEEL_DIAMETER_INCHES / 2.0;
+	double theta = Math.toRadians(degrees);
+	double dist = radius * theta;
+	encoderDrive(speed, dist, -dist, dist, -dist, timeout);
+    }	
+
+    public void delay(long millis) {
+	runtime.reset();
+	while (runtime.milliseconds() < millis);
+	runtime.reset();
+    }
+    
     /*
      *  Method to perfmorm a relative move, based on encoder counts.
      *  Encoders are not reset as the move is based on the current position.
