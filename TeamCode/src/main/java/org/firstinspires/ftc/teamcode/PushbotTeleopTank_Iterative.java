@@ -145,16 +145,19 @@ public class PushbotTeleopTank_Iterative extends OpMode {
 //            robot.priArm_Right.setPower(0);
 //        }
 
+        // STRAFING
+        // notice that the front left & back right drives need to be a little
+        // faster to account for hardware stuff
         if(gamepad1.dpad_left) {
-            robot.frontLeftDrive.setPower(.7);
+            robot.frontLeftDrive.setPower(.8);
             robot.frontRightDrive.setPower(-.7);
             robot.backLeftDrive.setPower(-.7);
-            robot.backRightDrive.setPower(.7);
+            robot.backRightDrive.setPower(.8);
         } else if(gamepad1.dpad_right) {
-            robot.frontLeftDrive.setPower(-.7);
+            robot.frontLeftDrive.setPower(-.8);
             robot.frontRightDrive.setPower(.7);
             robot.backLeftDrive.setPower(.7);
-            robot.backRightDrive.setPower(-.7);
+            robot.backRightDrive.setPower(-.8);
         } else if(gamepad1.right_stick_x != 0 || gamepad1.right_stick_y != 0) {
             double r = Math.hypot(gamepad1.right_stick_x, gamepad1.right_stick_y);
             double robotAngle = Math.atan2(gamepad1.right_stick_y, gamepad1.right_stick_x) - Math.PI / 4;
