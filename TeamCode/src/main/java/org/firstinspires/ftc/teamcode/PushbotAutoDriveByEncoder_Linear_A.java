@@ -86,11 +86,19 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
     static final double     DRIVE_SPEED             = .9;
     static final double     TURN_SPEED              = .9;
 <<<<<<< HEAD
+<<<<<<< HEAD
     double servoPos = 0.0;
 
 =======
     
 >>>>>>> 1b0bdaa8fe5d1a4b5d34b34048fc3da9da6ed965
+=======
+    
+=======
+    double servoPos = 0.0;
+
+>>>>>>> 02361fd5e77dedffaf6ecfe249b5123c20136b96
+>>>>>>> b664ad6ae265cb6ac3d04be2b23aa1c7da3b22a0
     @Override
     public void runOpMode() {
         /*
