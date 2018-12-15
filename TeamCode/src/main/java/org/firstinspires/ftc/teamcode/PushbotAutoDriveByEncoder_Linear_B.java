@@ -138,10 +138,7 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
         // drive thru middle block & into depot
         encoderDrive(.8, 40, 40, 40, 40, 15);
         // drop the marker
-        robot.marker_drop.setDirection(Servo.Direction.FORWARD);
-        robot.marker_drop.setPosition(1);
-        robot.marker_drop.setDirection(Servo.Direction.REVERSE);
-        robot.marker_drop.setPosition(0.5);
+	robot.marker_drop.setPower(1.0);
         // turn 135 degrees
         encoderDrive(.8,12,-12,12,-12,3);
         //spin towards crater

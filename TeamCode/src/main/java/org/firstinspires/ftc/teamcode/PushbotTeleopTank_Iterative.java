@@ -113,7 +113,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
         // WINCH
         if (gamepad1.y) {
             robot.winch.setSpeed(1.0);
-        } else if (gamepad1.y) {
+        } else if (gamepad1.a) {
             robot.winch.setSpeed(-1.0);
         } else {
 	    robot.winch.setSpeed(0.0);

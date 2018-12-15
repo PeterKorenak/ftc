@@ -164,10 +164,7 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         //Drive to depot
         encoderDrive(.8,40,40,40,40,15);
         // drop the marker
-        robot.marker_drop.setDirection(Servo.Direction.REVERSE);
-        robot.marker_drop.setPosition(0.5);
-        robot.marker_drop.setDirection(Servo.Direction.FORWARD);
-        robot.marker_drop.setPosition(1);
+	robot.marker_drop.setPower(1.0);
         //Reverse to crater
         encoderDrive(.65,-48,-45,-48,-45,15);
         // if (gamepad1.a && winchElevation < 5.0) {
