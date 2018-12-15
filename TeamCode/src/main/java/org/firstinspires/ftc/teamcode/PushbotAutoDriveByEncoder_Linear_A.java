@@ -85,7 +85,7 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 	                (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = .9;
     static final double     TURN_SPEED              = .9;
-
+    
     @Override
     public void runOpMode() {
         /*
@@ -194,6 +194,8 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 	double theta = Math.toRadians(degrees);
 	double dist = radius * theta;
 	encoderDrive(speed, dist, -dist, dist, -dist, timeout);
+	double circumference = 2 * Math.PI;
+	// right => fl & br spin in
     }	
 
     public void delay(long millis) {

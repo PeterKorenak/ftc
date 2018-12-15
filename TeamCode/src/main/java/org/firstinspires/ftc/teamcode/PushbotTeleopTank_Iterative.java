@@ -88,8 +88,6 @@ public class PushbotTeleopTank_Iterative extends OpMode {
     @Override
     public void start() {}
 
-
-
     @Override
     public void loop() {
         /*
@@ -114,9 +112,9 @@ public class PushbotTeleopTank_Iterative extends OpMode {
 
         // WINCH
         if (gamepad1.y) {
-            robot.winch.setPosition(1.5);
+            robot.winch.setPosition(1.0);
         } else if (gamepad1.y) {
-            robot.winch.setPosition(0.5);
+            robot.winch.setPosition(0.0);
         }
 
         // ARM UP
@@ -129,7 +127,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
 //
 //            robot.priArm_Right.setTargetPosition(position2 + 10);
 //            robot.priArm_Right.setPower(.3);
-//        //ARM DOWN
+//        // ARM DOWN
 //        } else if(gamepad1.y) {
 //            int position3 = robot.priArm_Left.getCurrentPosition();
 //            int position4 = robot.priArm_Right.getCurrentPosition();
