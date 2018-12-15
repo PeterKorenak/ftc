@@ -40,7 +40,7 @@ public class HardwarePushbot {
     public Servo intake_Tilt         = null;
     public Servo intake_Door         = null;
     public CRServo intake_Tumbler    = null;
-    public Servo winch = null;
+    public CRServo winch = null;
     public ColorSensor color;
 
     //MARKER SERVO
@@ -88,7 +88,7 @@ public class HardwarePushbot {
         // intake_Door = hwMap.servo.get("intake_door");                                               //Sets intake Door config
 
         // WINCH
-        winch = hwMap.servo.get("winch");
+        winch = hwMap.crservo.get("winch");
 
         //SENSORS
         color = hwMap.colorSensor.get("color_sensor");                                              //Sets color sensor config
