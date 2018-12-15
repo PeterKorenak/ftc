@@ -85,7 +85,12 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 	                (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = .9;
     static final double     TURN_SPEED              = .9;
+<<<<<<< HEAD
     
+=======
+    double servoPos = 0.0;
+
+>>>>>>> 02361fd5e77dedffaf6ecfe249b5123c20136b96
     @Override
     public void runOpMode() {
         /*
@@ -135,22 +140,28 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         //          .addData("h", "%.3f", hsvValues[0])
         //          .addData("s", "%.3f", hsvValues[1])
         //          .addData("v", "%.3f", hsvValues[2]);
-        encoderDrive(.8, 17, 17, 17, 17, 3);
-        //turn 135 degrees
-        encoderDrive(.8,12,-12,12,-12,3);
-        //Drive to wall
-        encoderDrive(.8, 24, 24, 24, 24, 3);
-        //spin towards depot
+        //drive straight to crater
+        //encoderDrive(.8, 17, 17, 17, 17, 3);
+        //turn towards wall
+        //encoderDrive(.8,20.9,-20.9,20.9,-20.9,3);
+
+        //drive a bit forward
+        encoderDrive(.8, 10, 10, 10, 10, 3);
+        //turn towards right block
         encoderDrive(.8, 7, -7, 7, -7, 3);
+        //drive to wall
+        encoderDrive(.8, 12, 12, 12, 12, 3);
+        //turn towards depot
+        encoderDrive(.8, 14, -14, 14, -14, 3);
         //Drive to depot
         encoderDrive(.8,40,40,40,40,15);
         // drop the marker
         robot.marker_drop.setDirection(Servo.Direction.REVERSE);
-        robot.marker_drop.setPosition(1);
-        robot.marker_drop.setDirection(Servo.Direction.FORWARD);
         robot.marker_drop.setPosition(0.5);
+        robot.marker_drop.setDirection(Servo.Direction.FORWARD);
+        robot.marker_drop.setPosition(1);
         //Reverse to crater
-        encoderDrive(.65,-45,-45,-45,-45,15);
+        encoderDrive(.65,-48,-45,-48,-45,15);
         // if (gamepad1.a && winchElevation < 5.0) {
         //    robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
         //    robot.winch.setPower(0.7);
