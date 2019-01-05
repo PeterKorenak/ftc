@@ -124,6 +124,8 @@ public class AutoD extends LinearOpMode {
         telemetry.update();
 
         // Wait for the game to start (driver presses PLAY)
+        // double pos = 1.0;
+        // robot.lock.setPosition(pos);
         waitForStart();
 
         // float[] hsvValues = new float[3];
@@ -134,29 +136,55 @@ public class AutoD extends LinearOpMode {
         //         .addData("s", "%.3f", hsvValues[1])
         //         .addData("v", "%.3f", hsvValues[2]);
         // // print out the colors
-
-        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 3161);
-        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 3161);
-        robot.priArm_Left.setPower(.7);
-        robot.priArm_Right.setPower(.7);
-        while(robot.priArm_Left.isBusy() || robot.priArm_Right.isBusy())
-        {
+//unhook
+     /*   for(int i = 0; i < 170; i++) {
+            robot.priArm_Left.setPower(.43);
+            robot.priArm_Right.setPower(.43);
+            pos -= .01;
+            robot.lock.setPosition(pos);
         }
+        robot.priArm_Left.setPower(-.2);
+        robot.priArm_Right.setPower(-.2);
+        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        this.delay(1200);
+        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.priArm_Left.setPower(0);
+        robot.priArm_Right.setPower(0);
+        //      refold arm
+        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 600);
+        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 600);
+        robot.priArm_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.priArm_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.priArm_Left.setPower(.4);
+        robot.priArm_Right.setPower(.4);
+        while(opModeIsActive() && robot.priArm_Left.isBusy() && robot.priArm_Right.isBusy())
+        {
+        }*/
         // drive thru middle block into depot
-        encoderDrive(.8, 45, 45, 45, 45, 15);
+        encoderDrive(.8, -45, -45, -45, -45, 15);
         // drop the marker
+        // drop the marker
+        //Tilt Intake
+        robot.intake_tilt.setPosition(.55);
+        //Open Door
+        robot.intake_Door.setPosition(0);
         // turn towards crater
-        encoderDrive(.8,23,-23,23,-23,3);
+        encoderDrive(.8,24,-24,24,-24,3);
         //Drive to crater
-        encoderDrive(.8,55,55,55,55,15);
+        encoderDrive(.8,-55,-55,-55,-55,15);
         //put foot on crater
-        encoderDrive(.8, 4,2,4,2,3);
+        encoderDrive(.8, -4,-2,-4,-2,3);
         //lower winch to break vertical plane of crater
         /*if (gamepad1.a && winchElevation < 5.0) {
             robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
             robot.winch.setPower(0.7);
             winchElevation += 0.7;
         }*/
+        // maybe not the best idea, but this is an attempt at fixing the servo.
+        // rotate it back to 0 position at the end of everything.
+        // robot.lock.setPosition(0.0);
     }
 
     /**

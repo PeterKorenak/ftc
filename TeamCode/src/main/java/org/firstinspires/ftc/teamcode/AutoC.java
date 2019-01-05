@@ -35,6 +35,7 @@ import android.graphics.Color;
 
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.eventloop.opmode.OpMode;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -127,9 +128,27 @@ public class AutoC extends LinearOpMode {
         telemetry.update();
 
         //lock arm
-				robot.lock.setPosition(46.5/180.0);
+        double pos = 1;
+      //  robot.lock.setPosition(pos);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
+        //unlock and lower
+      /*  robot.priArm_Left.setPower(.45);
+        robot.priArm_Right.setPower(.45);
+        for(int i = 0; i < 500; i++) {
+            robot.priArm_Left.setPower(.3);
+            robot.priArm_Right.setPower(.3);
+            pos-= .03;
+            robot.lock.setPosition(pos);
+        }
+        robot.priArm_Left.setPower(0);
+        robot.priArm_Right.setPower(0);
+        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        this.delay(1200);
+        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+*/
 
         // print out the colors
         // float[] hsvValues = new float[3];
@@ -140,37 +159,46 @@ public class AutoC extends LinearOpMode {
         //          .addData("s", "%.3f", hsvValues[1])
         //          .addData("v", "%.3f", hsvValues[2]);
         //drive straight to crater
-        //encoderDrive(.8, 17, 17, 17, 17, 3);
+   //     encoderDrive(.8, 17, 17, 17, 17, 3);
         //turn towards wall
-        //encoderDrive(.8,20.9,-20.9,20.9,-20.9,3);
+  //      encoderDrive(.8,20.9,-20.9,20.9,-20.9,3);
 
         // uh try to wiggle off the hook
         //u nlock
-        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() - 3161);
-        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() - 3161);
-        robot.priArm_Left.setPower(-.7);
-        robot.priArm_Right.setPower(-.7);
-        while(robot.priArm_Left.isBusy() || robot.priArm_Right.isBusy())
+//
+//
+//strafe off of hook
+ //     encoderDrive(.4, -2.5, 2.5, 2.5, -2.5, 3);
+//
+//      refold arm
+     /*   robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 600);
+        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 600);
+        robot.priArm_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.priArm_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.priArm_Left.setPower(.4);
+        robot.priArm_Right.setPower(.4);
+        while(opModeIsActive() && robot.priArm_Left.isBusy() && robot.priArm_Right.isBusy())
         {
-        }
-
-        encoderDrive(.4, -2, 2, 2, -2, 3);
-
-
-
-        //drive a bit forward
-        encoderDrive(.8, 10, 10, 10, 10, 3);
-        //turn towards right block
-        encoderDrive(.8, 7, -7, 7, -7, 3);
-        //drive to wall
-        encoderDrive(.8, 12, 12, 12, 12, 3);
-        //turn towards depot
-        encoderDrive(.8, 14, -14, 14, -14, 3);
-        //Drive to depot
-        encoderDrive(.8,40,40,40,40,15);
-        // drop the marker
-        //Reverse to crater
-        encoderDrive(.65,-55,-55,-55,-55,15);
+        }*/
+//        //drive a bit forward
+        encoderDrive(.8, -9.5, -9.5, -9.5, -9.5, 3);
+//        //turn towards right block
+        encoderDrive(.8, 9.5, -9.5, 9.5, -9.5, 3);
+//        //drive to wall
+        encoderDrive(.8, -26, -26, -26, -26, 3);
+//        //turn towards depot
+        encoderDrive(.8, 15, -15, 15, -15, 3);
+//        //Drive to depot
+        encoderDrive(.8,-56,-56,-56,-56,52);
+//        // drop the marker
+            //Tilt Intake
+                robot.intake_tilt.setPosition(.55);
+            //Open Door
+                robot.intake_Door.setPosition(0);
+//        //Reverse to crater
+        encoderDrive(.65,67,67,67,67,15);
+        //turn a bit to perch
+        encoderDrive(.65,0,4,0,4,15);
         // if (gamepad1.a && winchElevation < 5.0) {
         //    robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
         //    robot.winch.setPower(0.7);
@@ -219,8 +247,7 @@ public class AutoC extends LinearOpMode {
 
     public void delay(long millis) {
 	    runtime.reset();
-	    while (runtime.milliseconds() < millis);
-	    runtime.reset();
+	    while (runtime.milliseconds() < millis){}
     }
     
     /*

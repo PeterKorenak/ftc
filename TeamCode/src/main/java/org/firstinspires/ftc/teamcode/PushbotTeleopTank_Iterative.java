@@ -65,6 +65,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
     static final double     DRIVE_SPEED             = .9;
     static final double     TURN_SPEED              = .9;
     double servoPos = 0.0;
+    double pos = 0;
     boolean doorClosed = true;
     int thing = 30;
     /* Declare OpMode members. */
@@ -297,6 +298,15 @@ public class PushbotTeleopTank_Iterative extends OpMode {
             robot.intake_tilt.setPosition(.49);
         else if(gamepad1.left_trigger != 0)
             robot.intake_tilt.setPosition(.71);
+
+        if(gamepad1.start) {
+            pos += .01;
+        } else if(gamepad1.left_stick_button) {
+            pos -= .01;
+        }
+        if(pos > 1) pos = 1;
+        if(pos < 0) pos = 0;
+        robot.lock.setPosition(pos);
         //else robot.intake_tilt.setPosition(robot.intake_tilt.getPosition());
     }
 

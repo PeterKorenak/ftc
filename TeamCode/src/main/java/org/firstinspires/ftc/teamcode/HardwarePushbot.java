@@ -39,7 +39,7 @@ public class HardwarePushbot {
     public Servo intake_Door;
     public Servo intake_tilt;
     public CRServo intake_Tumbler = null;
-		public Servo lock;
+    public Servo lock;
 
     //SENSORS
     // public ColorSensor color;
