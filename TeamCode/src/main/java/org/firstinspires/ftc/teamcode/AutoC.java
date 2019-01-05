@@ -127,6 +127,7 @@ public class AutoC extends LinearOpMode {
         telemetry.update();
 
         //lock arm
+				robot.lock.setPosition(46.5/180.0);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
