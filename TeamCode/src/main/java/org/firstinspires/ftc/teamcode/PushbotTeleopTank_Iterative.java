@@ -76,7 +76,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
     //final double    CLAW_SPEED  = 0.02 ;                 // sets rate to move servo
     double contPower;
     double winchElevation = 0.0;
-    
+
     /*
      * Code to run ONCE when the driver hits INIT
      */

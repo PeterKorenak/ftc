@@ -39,6 +39,7 @@ public class HardwarePushbot {
     public Servo intake_Door;
     public Servo intake_tilt;
     public CRServo intake_Tumbler = null;
+		public Servo lock;
 
     //SENSORS
     // public ColorSensor color;
@@ -74,6 +75,9 @@ public class HardwarePushbot {
         frontRightDrive = hwMap.get(DcMotor.class, "front_right");                        //Sets the name you have to use for the phone config
         backLeftDrive  = hwMap.get(DcMotor.class, "back_left");                           //Sets the name you have to use for the phone config
         backRightDrive = hwMap.get(DcMotor.class, "back_right");                          //Sets the name you have to use for the phone config
+
+				// LOCK
+				lock = hwMap.get(Servo.class, "lock");
 
         //INTAKE
         // intake_Tilt = hwMap.servo.get("intake_tilt");
