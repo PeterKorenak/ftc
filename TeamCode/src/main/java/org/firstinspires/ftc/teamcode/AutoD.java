@@ -37,7 +37,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
-import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.SwitchableLight;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Servo;
@@ -69,9 +69,9 @@ import com.qualcomm.robotcore.hardware.Servo;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder (Zone B)", group="Pushbot")
+@Autonomous(name="D START", group="Pushbot")
 //@Disabled
-public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
+public class AutoD extends LinearOpMode {
 
     /* Declare OpMode members. */
     org.firstinspires.ftc.teamcode.HardwarePushbot robot = new org.firstinspires.ftc.teamcode.HardwarePushbot();
@@ -135,16 +135,22 @@ public class PushbotAutoDriveByEncoder_Linear_B extends LinearOpMode {
         //         .addData("v", "%.3f", hsvValues[2]);
         // // print out the colors
 
-        // drive thru middle block & into depot
-        encoderDrive(.8, 40, 40, 40, 40, 15);
+        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 3161);
+        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 3161);
+        robot.priArm_Left.setPower(.7);
+        robot.priArm_Right.setPower(.7);
+        while(robot.priArm_Left.isBusy() || robot.priArm_Right.isBusy())
+        {
+        }
+        // drive thru middle block into depot
+        encoderDrive(.8, 45, 45, 45, 45, 15);
         // drop the marker
-	robot.marker_drop.setPower(1.0);
-        // turn 135 degrees
-        encoderDrive(.8,12,-12,12,-12,3);
-        //spin towards crater
-        encoderDrive(.8, 7, -7, 7, -7, 3);
+        // turn towards crater
+        encoderDrive(.8,23,-23,23,-23,3);
         //Drive to crater
-        encoderDrive(.8,40,40,40,40,15);
+        encoderDrive(.8,55,55,55,55,15);
+        //put foot on crater
+        encoderDrive(.8, 4,2,4,2,3);
         //lower winch to break vertical plane of crater
         /*if (gamepad1.a && winchElevation < 5.0) {
             robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);

@@ -22,32 +22,26 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwarePushbot {
     /* Public OpMode members. */
     //DRIVE
-    public DcMotor  frontLeftDrive   = null;
-    public DcMotor  frontRightDrive  = null;
-    public DcMotor  backLeftDrive    = null;
-    public DcMotor  backRightDrive   = null;
-
+    public DcMotor  frontLeftDrive;
+    public DcMotor  frontRightDrive;
+    public DcMotor  backLeftDrive;
+    public DcMotor  backRightDrive;
 
     //PRIMARY ARM
-    public DcMotor priArm_Right      = null;
-    public DcMotor priArm_Left       = null;
+    public DcMotor priArm_Right;
+    public DcMotor priArm_Left;
 
     //SECONDARY ARM
-    public DcMotor secArm_Right      = null;
-    public DcMotor secArm_Left       = null;
+    public DcMotor secArm_Right;
+    public DcMotor secArm_Left;
 
     //INTAKE
-    public Servo intake_Tilt         = null;
-    public Servo intake_Door         = null;
-    public CRServo intake_Tumbler    = null;
-    public CRServo winch = null;
-    public ColorSensor color;
-
-    //MARKER SERVO
-    public Servo marker_drop = null;
+    public Servo intake_Door;
+    public Servo intake_tilt;
+    public CRServo intake_Tumbler = null;
 
     //SENSORS
-
+    // public ColorSensor color;
 
     /* local OpMode members. */
     HardwareMap hwMap           =  null;
@@ -66,15 +60,14 @@ public class HardwarePushbot {
         //COMPONENT INIT//
 
         //PRIMARY ARM
-        // priArm_Right = hwMap.get(DcMotor.class, "pri_arm_right");                          //Sets the name you have to use for the phone config
-        // priArm_Left = hwMap.get(DcMotor.class, "pri_arm_left");                            //Sets the name you have to use for the phone config
-        // uncomment these once we've got 2 expansion hubs working
+        priArm_Right = hwMap.get(DcMotor.class, "pri_arm_right");                          //Sets the name you have to use for the phone config
+        priArm_Left = hwMap.get(DcMotor.class, "pri_arm_left");                            //Sets the name you have to use for the phone config
         // armBase1 = hwMap.get(DcMotor.class, "arm_base_1");
         // armBase2 = hwMap.get(DcMotor.class, "arm_base_2");
 
         //SECONDARY ARM
-        // secArm_Right = hwMap.get(DcMotor.class, "sec_arm_right");                          //Sets the name you have to use for the phone config
-        // secArm_Left = hwMap.get(DcMotor.class, "sec_arm_left");                            //Sets the name you have to use for the phone config
+        secArm_Right = hwMap.get(DcMotor.class, "sec_arm_right");                          //Sets the name you have to use for the phone config
+        secArm_Left = hwMap.get(DcMotor.class, "sec_arm_left");                            //Sets the name you have to use for the phone config
 
         //DRIVE
         frontLeftDrive  = hwMap.get(DcMotor.class, "front_left");                         //Sets the name you have to use for the phone config
@@ -83,33 +76,31 @@ public class HardwarePushbot {
         backRightDrive = hwMap.get(DcMotor.class, "back_right");                          //Sets the name you have to use for the phone config
 
         //INTAKE
-        // intake_Tilt = hwMap.servo.get("intake_tilt");                                               //Sets intake tilt motor config
-        // intake_Tumbler = hwMap.crservo.get("intake_tumbler");                                       //Sets intake tumbler config
-        // intake_Door = hwMap.servo.get("intake_door");                                               //Sets intake Door config
-
-        // WINCH
-        winch = hwMap.crservo.get("winch");
+        // intake_Tilt = hwMap.servo.get("intake_tilt");
+        // Sets intake tilt motor config
+          intake_tilt = hwMap.servo.get("intake_tilt");
+          intake_Tumbler = hwMap.crservo.get("intake_tumbler");                                       //Sets intake tumbler config
+          intake_Door = hwMap.servo.get("intake_door");                                               //Sets intake Door config
 
         //SENSORS
-        color = hwMap.colorSensor.get("color_sensor");                                              //Sets color sensor config
+        // color = hwMap.colorSensor.get("color_sensor");                                              //Sets color sensor config
 
         //SERVO TO DROP MARKER IN DEPOT
-        marker_drop = hwMap.servo.get("marker");
         //DIRECTION INIT//\
 
         //PRIMARY ARM
-        // priArm_Right.setDirection(DcMotor.Direction.FORWARD);
-        // priArm_Left.setDirection(DcMotor.Direction.REVERSE);
+        priArm_Right.setDirection(DcMotor.Direction.FORWARD);
+        priArm_Left.setDirection(DcMotor.Direction.REVERSE);
 
         //SECONDARY ARM
-        // secArm_Right.setDirection(DcMotor.Direction.FORWARD);
-        // secArm_Left.setDirection(DcMotor.Direction.REVERSE);
+        secArm_Right.setDirection(DcMotor.Direction.FORWARD);
+        secArm_Left.setDirection(DcMotor.Direction.REVERSE);
 
         //DRIVE
         frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);                                     // Set to REVERSE if using AndyMark motors
         frontRightDrive.setDirection(DcMotor.Direction.REVERSE);                                    // Set to FORWARD if using AndyMark motors
         backLeftDrive.setDirection(DcMotor.Direction.FORWARD);                                      // Set to REVERSE if using AndyMark motors
-        backRightDrive.setDirection(DcMotor.Direction.REVERSE);// Set to FORWARD if using AndyMark motors
+        backRightDrive.setDirection(DcMotor.Direction.REVERSE);                                     // Set to FORWARD if using AndyMark motors
 
         backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -118,7 +109,7 @@ public class HardwarePushbot {
 
         //MOTOR BRAKE: sets all mot power to zero
         DcMotor[] motors = new DcMotor[] {frontLeftDrive, frontRightDrive,backLeftDrive,
-                backRightDrive/*, priArm_Right, priArm_Left, secArm_Left, secArm_Right*/};
+                backRightDrive, priArm_Right, priArm_Left, secArm_Left, secArm_Right};
 
         for(DcMotor motor: motors) {
             motor.setPower(0); //set all motors to zero power

@@ -70,9 +70,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
  * Remove or comment out the @Disabled line to add this opmode to the Driver Station OpMode list
  */
 
-@Autonomous(name="Pushbot: Auto Drive By Encoder (Zone A)", group="Pushbot")
+@Autonomous(name="C START", group="Pushbot")
 //@Disabled
-public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
+public class AutoC extends LinearOpMode {
 
     /* Declare OpMode members. */
     org.firstinspires.ftc.teamcode.HardwarePushbot robot = new org.firstinspires.ftc.teamcode.HardwarePushbot();
@@ -80,25 +80,14 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 
     static final double     COUNTS_PER_MOTOR_REV    = 1440 ;    // eg: TETRIX Motor Encoder
     static final double     DRIVE_GEAR_REDUCTION    = 1.0 ;     // This is < 1.0 if geared UP
+    static final double     PRIMARY_GEAR_REDUCCTION = 9.0;      // Gear ratio is 9:1
     static final double     WHEEL_DIAMETER_INCHES   = 4.0 ;     // For figuring circumference
-    static final double     COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
+    static final double     DRIVE_COUNTS_PER_INCH         = (COUNTS_PER_MOTOR_REV * DRIVE_GEAR_REDUCTION) /
 	                (WHEEL_DIAMETER_INCHES * 3.1415);
     static final double     DRIVE_SPEED             = .9;
     static final double     TURN_SPEED              = .9;
-<<<<<<< HEAD
-<<<<<<< HEAD
     double servoPos = 0.0;
 
-=======
-    
->>>>>>> 1b0bdaa8fe5d1a4b5d34b34048fc3da9da6ed965
-=======
-    
-=======
-    double servoPos = 0.0;
-
->>>>>>> 02361fd5e77dedffaf6ecfe249b5123c20136b96
->>>>>>> b664ad6ae265cb6ac3d04be2b23aa1c7da3b22a0
     @Override
     public void runOpMode() {
         /*
@@ -137,6 +126,7 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
 			  robot.backLeftDrive.getCurrentPosition());
         telemetry.update();
 
+        //lock arm
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
 
@@ -153,6 +143,20 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         //turn towards wall
         //encoderDrive(.8,20.9,-20.9,20.9,-20.9,3);
 
+        // uh try to wiggle off the hook
+        //u nlock
+        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 3161);
+        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 3161);
+        robot.priArm_Left.setPower(.7);
+        robot.priArm_Right.setPower(.7);
+        while(robot.priArm_Left.isBusy() || robot.priArm_Right.isBusy())
+        {
+        }
+
+        encoderDrive(.4, -2, 2, 2, -2, 3);
+
+
+
         //drive a bit forward
         encoderDrive(.8, 10, 10, 10, 10, 3);
         //turn towards right block
@@ -164,9 +168,8 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         //Drive to depot
         encoderDrive(.8,40,40,40,40,15);
         // drop the marker
-	robot.marker_drop.setPower(1.0);
         //Reverse to crater
-        encoderDrive(.65,-48,-45,-48,-45,15);
+        encoderDrive(.65,-55,-55,-55,-55,15);
         // if (gamepad1.a && winchElevation < 5.0) {
         //    robot.winch.setDirection(DcMotorSimple.Direction.FORWARD);
         //    robot.winch.setPower(0.7);
@@ -206,18 +209,17 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
      * Math!
      */
     public void rotateRobot(double speed, int degrees, double timeout) {
-	double radius = WHEEL_DIAMETER_INCHES / 2.0;
-	double theta = Math.toRadians(degrees);
-	double dist = radius * theta;
-	encoderDrive(speed, dist, -dist, dist, -dist, timeout);
-	double circumference = 2 * Math.PI;
-	// right => fl & br spin in
+	    double radius = WHEEL_DIAMETER_INCHES / 2.0;
+	    double theta = Math.toRadians(degrees);
+	    double dist = radius * theta;
+	    encoderDrive(speed, dist, -dist, dist, -dist, timeout);
+	    double circumference = 2 * Math.PI;
     }	
 
     public void delay(long millis) {
-	runtime.reset();
-	while (runtime.milliseconds() < millis);
-	runtime.reset();
+	    runtime.reset();
+	    while (runtime.milliseconds() < millis);
+	    runtime.reset();
     }
     
     /*
@@ -241,10 +243,10 @@ public class PushbotAutoDriveByEncoder_Linear_A extends LinearOpMode {
         // Ensure that the opmode is still active
         if (opModeIsActive()) {
             // Determine new target position, and pass to motor controller
-            newLeftTarget = robot.frontLeftDrive.getCurrentPosition() + (int) (fleftInches * COUNTS_PER_INCH);
-            newRightTarget = robot.frontRightDrive.getCurrentPosition() + (int) (frightInches * COUNTS_PER_INCH);
-            newLeftTarget2 = robot.backLeftDrive.getCurrentPosition() + (int) (bleftInches * COUNTS_PER_INCH);
-            newRightTarget2 = robot.backRightDrive.getCurrentPosition() + (int) (brightInches * COUNTS_PER_INCH);
+            newLeftTarget = robot.frontLeftDrive.getCurrentPosition() + (int) (fleftInches * DRIVE_COUNTS_PER_INCH);
+            newRightTarget = robot.frontRightDrive.getCurrentPosition() + (int) (frightInches * DRIVE_COUNTS_PER_INCH);
+            newLeftTarget2 = robot.backLeftDrive.getCurrentPosition() + (int) (bleftInches * DRIVE_COUNTS_PER_INCH);
+            newRightTarget2 = robot.backRightDrive.getCurrentPosition() + (int) (brightInches * DRIVE_COUNTS_PER_INCH);
             robot.frontLeftDrive.setTargetPosition(newLeftTarget);
             robot.frontRightDrive.setTargetPosition(newRightTarget);
             robot.backLeftDrive.setTargetPosition(newLeftTarget2);
