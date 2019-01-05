@@ -145,10 +145,10 @@ public class AutoC extends LinearOpMode {
 
         // uh try to wiggle off the hook
         //u nlock
-        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 3161);
-        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 3161);
-        robot.priArm_Left.setPower(.7);
-        robot.priArm_Right.setPower(.7);
+        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() - 3161);
+        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() - 3161);
+        robot.priArm_Left.setPower(-.7);
+        robot.priArm_Right.setPower(-.7);
         while(robot.priArm_Left.isBusy() || robot.priArm_Right.isBusy())
         {
         }

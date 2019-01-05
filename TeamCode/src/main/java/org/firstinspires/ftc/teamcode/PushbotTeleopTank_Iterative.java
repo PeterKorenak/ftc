@@ -137,20 +137,20 @@ public class PushbotTeleopTank_Iterative extends OpMode {
             int position2 = robot.priArm_Right.getCurrentPosition();
 
             robot.priArm_Left.setTargetPosition(position1 + 10);
-            robot.priArm_Left.setPower(.4);
+            robot.priArm_Left.setPower(.3);
 
             robot.priArm_Right.setTargetPosition(position2 + 10);
-            robot.priArm_Right.setPower(.4);
+            robot.priArm_Right.setPower(.3);
         // ARM DOWN
         } else if(gamepad1.b) {
             int position3 = robot.priArm_Left.getCurrentPosition();
             int position4 = robot.priArm_Right.getCurrentPosition();
 
             robot.priArm_Left.setTargetPosition(position3 - 10);
-            robot.priArm_Left.setPower(-.4);
+            robot.priArm_Left.setPower(-.3);
 
             robot.priArm_Right.setTargetPosition(position4 - 10);
-            robot.priArm_Right.setPower(-.4);
+            robot.priArm_Right.setPower(-.3);
 
         } else {
             robot.priArm_Left.setPower(0);
@@ -294,7 +294,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
         }
 
         if(gamepad1.right_trigger != 0)
-            robot.intake_tilt.setPosition(.48);
+            robot.intake_tilt.setPosition(.49);
         else if(gamepad1.left_trigger != 0)
             robot.intake_tilt.setPosition(.71);
         //else robot.intake_tilt.setPosition(robot.intake_tilt.getPosition());
