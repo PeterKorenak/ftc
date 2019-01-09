@@ -227,7 +227,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
         }
             else if(gamepad1.right_stick_y != 0)
             {
-                double p = .3 * gamepad1.right_stick_y;
+                double p = .3 * -gamepad1.right_stick_y;
                 robot.frontRightDrive.setPower(p);
                 robot.backRightDrive.setPower(p);
                 robot.frontLeftDrive.setPower(p);
@@ -261,7 +261,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
                 robot.frontLeftDrive.setPower(-.7);
                 robot.backLeftDrive.setPower(-.7);
             } else if (gamepad1.left_stick_y != 0) {
-                double p = .8 * gamepad1.left_stick_y;
+                double p = .8 * -gamepad1.left_stick_y;
                 robot.frontRightDrive.setPower(p);
                 robot.backRightDrive.setPower(p);
                 robot.frontLeftDrive.setPower(p);

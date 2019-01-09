@@ -122,7 +122,10 @@ public class AutoD extends LinearOpMode {
                 robot.backRightDrive.getCurrentPosition(),
                 robot.backLeftDrive.getCurrentPosition());
         telemetry.update();
-
+        double pos = 1.0;
+        int initialLeftPos = robot.priArm_Left.getCurrentPosition();
+        int initialRightPos = robot.priArm_Right.getCurrentPosition();
+        robot.lock.setPosition(pos);
         // Wait for the game to start (driver presses PLAY)
         // double pos = 1.0;
         // robot.lock.setPosition(pos);
@@ -137,31 +140,35 @@ public class AutoD extends LinearOpMode {
         //         .addData("v", "%.3f", hsvValues[2]);
         // // print out the colors
 //unhook
-     /*   for(int i = 0; i < 170; i++) {
-            robot.priArm_Left.setPower(.43);
-            robot.priArm_Right.setPower(.43);
+
+        for (int i = 0; i < 170; i++) {
+            robot.priArm_Left.setPower(.3);
+            robot.priArm_Right.setPower(.3);
+            pos -= .01;
+            robot.lock.setPosition(pos);
+        }
+        this.delay(400);
+        for (int i = 0; i < 170; i++) {
+            robot.priArm_Left.setPower(.5);
+            robot.priArm_Right.setPower(.5);
             pos -= .01;
             robot.lock.setPosition(pos);
         }
         robot.priArm_Left.setPower(-.2);
         robot.priArm_Right.setPower(-.2);
-        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        this.delay(1200);
-        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.priArm_Left.setPower(0);
-        robot.priArm_Right.setPower(0);
-        //      refold arm
-        robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 600);
-        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 600);
+        this.delay(1200.0);
+        encoderDrive(.7, -2, 2, 2,-2, 3);
+
+        robot.priArm_Right.setTargetPosition(initialRightPos);
+        robot.priArm_Left.setTargetPosition(initialLeftPos);
         robot.priArm_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.priArm_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.priArm_Left.setPower(.4);
-        robot.priArm_Right.setPower(.4);
+        robot.priArm_Left.setPower(-.4);
+        robot.priArm_Right.setPower(-.4);
         while(opModeIsActive() && robot.priArm_Left.isBusy() && robot.priArm_Right.isBusy())
         {
-        }*/
+        }
+
         // drive thru middle block into depot
         encoderDrive(.8, -45, -45, -45, -45, 15);
         // drop the marker
@@ -225,7 +232,7 @@ public class AutoD extends LinearOpMode {
         encoderDrive(speed, dist, -dist, dist, -dist, timeout);
     }
 
-    public void delay(long millis) {
+    public void delay(double millis) {
         runtime.reset();
         while (runtime.milliseconds() < millis);
         runtime.reset();

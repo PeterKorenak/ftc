@@ -129,26 +129,29 @@ public class AutoC extends LinearOpMode {
 
         //lock arm
         double pos = 1;
+        int initialLeftPos = robot.priArm_Left.getCurrentPosition();
+        int initialRightPos = robot.priArm_Right.getCurrentPosition();
       //  robot.lock.setPosition(pos);
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         //unlock and lower
-      /*  robot.priArm_Left.setPower(.45);
-        robot.priArm_Right.setPower(.45);
-        for(int i = 0; i < 500; i++) {
+        for (int i = 0; i < 170; i++) {
             robot.priArm_Left.setPower(.3);
             robot.priArm_Right.setPower(.3);
-            pos-= .03;
+            pos -= .01;
             robot.lock.setPosition(pos);
         }
-        robot.priArm_Left.setPower(0);
-        robot.priArm_Right.setPower(0);
-        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        this.delay(1200);
-        robot.priArm_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        robot.priArm_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-*/
+        this.delay(400);
+        for (int i = 0; i < 170; i++) {
+            robot.priArm_Left.setPower(.5);
+            robot.priArm_Right.setPower(.5);
+            pos -= .01;
+            robot.lock.setPosition(pos);
+        }
+        robot.priArm_Left.setPower(-.2);
+        robot.priArm_Right.setPower(-.2);
+        this.delay(1200.0);
+        encoderDrive(.7, -2, 2, 2,-2, 3);
 
         // print out the colors
         // float[] hsvValues = new float[3];
@@ -171,23 +174,23 @@ public class AutoC extends LinearOpMode {
  //     encoderDrive(.4, -2.5, 2.5, 2.5, -2.5, 3);
 //
 //      refold arm
-     /*   robot.priArm_Right.setTargetPosition(robot.priArm_Right.getCurrentPosition() + 600);
-        robot.priArm_Left.setTargetPosition(robot.priArm_Left.getCurrentPosition() + 600);
+        robot.priArm_Right.setTargetPosition(initialRightPos);
+        robot.priArm_Left.setTargetPosition(initialLeftPos);
         robot.priArm_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.priArm_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.priArm_Left.setPower(.4);
-        robot.priArm_Right.setPower(.4);
+        robot.priArm_Left.setPower(-.4);
+        robot.priArm_Right.setPower(-.4);
         while(opModeIsActive() && robot.priArm_Left.isBusy() && robot.priArm_Right.isBusy())
         {
-        }*/
+        }
 //        //drive a bit forward
         encoderDrive(.8, -9.5, -9.5, -9.5, -9.5, 3);
 //        //turn towards right block
-        encoderDrive(.8, 9.5, -9.5, 9.5, -9.5, 3);
+        encoderDrive(.8, -9.5, 9.5, -9.5, 9.5, 3);
 //        //drive to wall
         encoderDrive(.8, -26, -26, -26, -26, 3);
 //        //turn towards depot
-        encoderDrive(.8, 15, -15, 15, -15, 3);
+        encoderDrive(.8, -15, 15, -15, 15, 3);
 //        //Drive to depot
         encoderDrive(.8,-56,-56,-56,-56,52);
 //        // drop the marker
@@ -245,7 +248,7 @@ public class AutoC extends LinearOpMode {
 	    double circumference = 2 * Math.PI;
     }	
 
-    public void delay(long millis) {
+    public void delay(double millis) {
 	    runtime.reset();
 	    while (runtime.milliseconds() < millis){}
     }
