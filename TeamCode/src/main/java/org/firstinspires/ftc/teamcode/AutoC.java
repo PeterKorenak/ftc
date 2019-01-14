@@ -168,10 +168,24 @@ public class AutoC extends LinearOpMode {
 
         // uh try to wiggle off the hook
         //u nlock
-//
-//
-//strafe off of hook
- //     encoderDrive(.4, -2.5, 2.5, 2.5, -2.5, 3);
+
+        for (int i = 0; i < 170; i++) {
+            robot.priArm_Left.setPower(.3);
+            robot.priArm_Right.setPower(.3);
+            pos -= .01;
+            robot.lock.setPosition(pos);
+        }
+        this.delay(400);
+        for (int i = 0; i < 170; i++) {
+            robot.priArm_Left.setPower(.5);
+            robot.priArm_Right.setPower(.5);
+            pos -= .01;
+            robot.lock.setPosition(pos);
+        }
+        robot.priArm_Left.setPower(-.2);
+        robot.priArm_Right.setPower(-.2);
+        this.delay(800.0);
+        encoderDrive(.7, -3.2, 3.2, 3.2,-3.2, 3);
 //
 //      refold arm
         robot.priArm_Right.setTargetPosition(initialRightPos);

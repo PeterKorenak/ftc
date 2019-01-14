@@ -156,8 +156,8 @@ public class AutoD extends LinearOpMode {
         }
         robot.priArm_Left.setPower(-.2);
         robot.priArm_Right.setPower(-.2);
-        this.delay(1200.0);
-        encoderDrive(.7, -2, 2, 2,-2, 3);
+        this.delay(1000.0);
+        encoderDrive(.7, -4, 4, 4,-4, 3);
 
         robot.priArm_Right.setTargetPosition(initialRightPos);
         robot.priArm_Left.setTargetPosition(initialLeftPos);
