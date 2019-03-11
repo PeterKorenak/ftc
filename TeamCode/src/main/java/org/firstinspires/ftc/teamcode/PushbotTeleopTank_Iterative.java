@@ -133,7 +133,7 @@ public class PushbotTeleopTank_Iterative extends OpMode {
 //	}
 
         // ARM UP
-        if(gamepad1.a) {
+       /* if(gamepad1.a) {
             int position1 = robot.priArm_Left.getCurrentPosition();
             int position2 = robot.priArm_Right.getCurrentPosition();
 
@@ -209,7 +209,8 @@ public class PushbotTeleopTank_Iterative extends OpMode {
             robot.frontRightDrive.setPower(v2/13);
             robot.backLeftDrive.setPower(v3/13);
             robot.backRightDrive.setPower(v4/13);}*/
-        else if(gamepad1.right_stick_x != 0 || gamepad1.right_stick_y != 0)
+
+        if(gamepad1.right_stick_x != 0 || gamepad1.right_stick_y != 0)
         {
             if(gamepad1.right_stick_x > .5)
             {
