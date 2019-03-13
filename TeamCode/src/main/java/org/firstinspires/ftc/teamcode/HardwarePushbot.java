@@ -22,25 +22,9 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 public class HardwarePushbot {
     /* Public OpMode members. */
     //DRIVE
-    public DcMotor  frontLeftDrive;
-    public DcMotor  frontRightDrive;
-    public DcMotor  backLeftDrive;
-    public DcMotor  backRightDrive;
-
-    //PRIMARY ARM
-    public DcMotor priArm_Right;
-    public DcMotor priArm_Left;
-
-    //SECONDARY ARM
-    public DcMotor secArm_Right;
-    public DcMotor secArm_Left;
-
-    //INTAKE
-    public Servo intake_Door;
-    public Servo intake_tilt;
-    public CRServo intake_Tumbler = null;
-    public Servo lock;
-
+    public DcMotor  leftDrive;
+    public DcMotor  rightDrive;
+    public DcMotor  arm;
     //SENSORS
     // public ColorSensor color;
 
@@ -61,63 +45,26 @@ public class HardwarePushbot {
         //COMPONENT INIT//
 
         //PRIMARY ARM
-        priArm_Right = hwMap.get(DcMotor.class, "pri_arm_right");                          //Sets the name you have to use for the phone config
-        priArm_Left = hwMap.get(DcMotor.class, "pri_arm_left");                            //Sets the name you have to use for the phone config
-        // armBase1 = hwMap.get(DcMotor.class, "arm_base_1");
-        // armBase2 = hwMap.get(DcMotor.class, "arm_base_2");
+    leftDrive  = hwMap.get(DcMotor.class, "left");                         //Sets the name you have to use for the phone config
+      rightDrive = hwMap.get(DcMotor.class, "right");                        //Sets the name you have to use for the phone config
+        arm  = hwMap.get(DcMotor.class, "arm");
 
-        //SECONDARY ARM
-        secArm_Right = hwMap.get(DcMotor.class, "sec_arm_right");                          //Sets the name you have to use for the phone config
-        secArm_Left = hwMap.get(DcMotor.class, "sec_arm_left");                            //Sets the name you have to use for the phone config
 
         //DRIVE
-        frontLeftDrive  = hwMap.get(DcMotor.class, "front_left");                         //Sets the name you have to use for the phone config
-        frontRightDrive = hwMap.get(DcMotor.class, "front_right");                        //Sets the name you have to use for the phone config
-        backLeftDrive  = hwMap.get(DcMotor.class, "back_left");                           //Sets the name you have to use for the phone config
-        backRightDrive = hwMap.get(DcMotor.class, "back_right");                          //Sets the name you have to use for the phone config
+        leftDrive.setDirection(DcMotor.Direction.FORWARD);                                     // Set to REVERSE if using AndyMark motors
+        rightDrive.setDirection(DcMotor.Direction.REVERSE);                                    // Set to FORWARD if using AndyMark motors
+        arm.setDirection(DcMotor.Direction.FORWARD);                                      // Set to REVERSE if using AndyMark motors
 
-				// LOCK
-				lock = hwMap.get(Servo.class, "lock");
+        rightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        leftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       arm.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        //INTAKE
-        // intake_Tilt = hwMap.servo.get("intake_tilt");
-        // Sets intake tilt motor config
-          intake_tilt = hwMap.servo.get("intake_tilt");
-          intake_Tumbler = hwMap.crservo.get("intake_tumbler");                                       //Sets intake tumbler config
-          intake_Door = hwMap.servo.get("intake_door");                                               //Sets intake Door config
-
-        //SENSORS
-        // color = hwMap.colorSensor.get("color_sensor");                                              //Sets color sensor config
-
-        //SERVO TO DROP MARKER IN DEPOT
-        //DIRECTION INIT//\
-
-        //PRIMARY ARM
-        priArm_Right.setDirection(DcMotor.Direction.FORWARD);
-        priArm_Left.setDirection(DcMotor.Direction.REVERSE);
-
-        //SECONDARY ARM
-        secArm_Right.setDirection(DcMotor.Direction.FORWARD);
-        secArm_Left.setDirection(DcMotor.Direction.REVERSE);
-
-        //DRIVE
-        frontLeftDrive.setDirection(DcMotor.Direction.FORWARD);                                     // Set to REVERSE if using AndyMark motors
-        frontRightDrive.setDirection(DcMotor.Direction.REVERSE);                                    // Set to FORWARD if using AndyMark motors
-        backLeftDrive.setDirection(DcMotor.Direction.FORWARD);                                      // Set to REVERSE if using AndyMark motors
-        backRightDrive.setDirection(DcMotor.Direction.REVERSE);                                     // Set to FORWARD if using AndyMark motors
-
-        backRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        backLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontLeftDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        frontRightDrive.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //MOTOR BRAKE: sets all mot power to zero
-        DcMotor[] motors = new DcMotor[] {frontLeftDrive, frontRightDrive,backLeftDrive,
-                backRightDrive, priArm_Right, priArm_Left, secArm_Left, secArm_Right};
+        DcMotor[] motors = new DcMotor[] {leftDrive, rightDrive,arm};
 
         for(DcMotor motor: motors) {
             motor.setPower(0); //set all motors to zero power
-            motor.setMode(DcMotor.RunMode.RUN_USING_ENCODER); //set all motors to run with encoders
             motor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE); //set motor behavior to halt when no buttons are pressed
         }
     }
