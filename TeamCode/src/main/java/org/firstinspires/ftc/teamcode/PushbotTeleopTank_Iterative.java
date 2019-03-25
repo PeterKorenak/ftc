@@ -53,7 +53,7 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 
 @TeleOp(name="Comp TeleOp", group="Pushbot")
-//@Disabled
+
 public class PushbotTeleopTank_Iterative extends OpMode {
     private ElapsedTime     runtime = new ElapsedTime();
 
@@ -103,22 +103,21 @@ public class PushbotTeleopTank_Iterative extends OpMode {
 
     @Override
     public void loop() {
-        if(gamepad1.right_stick_y > .2 || gamepad1.right_stick_y < -.2)
-        {
+        if(gamepad1.right_stick_y > .2 || gamepad1.right_stick_y < -.2) {
             robot.rightDrive.setPower(gamepad1.right_stick_y*.5);
+        } else {
+            robot.rightDrive.setPower(0);
         }
-        if(gamepad1.left_stick_y > .2 || gamepad1.left_stick_y < -.2)
-        {
+
+        if(gamepad1.left_stick_y > .2 || gamepad1.left_stick_y < -.2) {
             robot.leftDrive.setPower(gamepad1.left_stick_y*.5);
+        } else {
+            robot.leftDrive.setPower(0);
         }
-        if(gamepad1.right_trigger != 0)
-        {
-            robot.arm.setPower(.25*gamepad1.right_trigger);
-        }
-        else if(gamepad1.left_trigger != 0)
-        {
-            robot.arm.setPower(.25*gamepad1.left_trigger);
-        }
+
+        robot.arm.setPower(.25*gamepad1.right_trigger);
+
+        robot.arm.setPower(-.25*gamepad1.left_trigger);
     }
 
 
